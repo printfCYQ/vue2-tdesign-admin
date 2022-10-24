@@ -85,6 +85,7 @@ export default {
     },
     handleLogout() {
       console.log("logout");
+      this.$router.push("/login");
     },
     personalCenter() {
       console.log("personalCenter");

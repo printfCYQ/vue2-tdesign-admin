@@ -4,8 +4,10 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 // 引入组件库全局样式资源
-import "tdesign-vue/es/style/index.css";
 import "tdesign-vue/dist/reset.css";
+import "tdesign-vue/es/style/index.css";
+
+process.env.NODE_ENV === "development" && require("./mock/index");
 
 Vue.use(TDesign);
 
