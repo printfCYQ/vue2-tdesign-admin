@@ -1,5 +1,5 @@
 <template>
-  <div>User</div>
+  <div><t-card bordered :style="{ width: '100%' }"> User list</t-card></div>
 </template>
 
 <script>

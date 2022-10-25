@@ -1,5 +1,7 @@
 <template>
-  <div>Dashboard</div>
+  <div>
+    <t-card bordered :style="{ width: '100%' }"> 123</t-card>
+  </div>
 </template>
 
 <script>

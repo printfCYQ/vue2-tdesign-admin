@@ -1,23 +1,31 @@
 import storage from "@/utils/storage";
 import Vue from "vue";
 import Vuex, { createLogger } from "vuex";
+import { menuRootName } from "../router";
 
 import { actions } from "./actions";
-import user from "./modules/user";
 import { mutations } from "./mutations";
 Vue.use(Vuex);
 
 const debug = process.env.NODE_ENV !== "production";
 
 // 遍历模块
-// const modules = {};
-// const files = require.context("./modules", false, /\.js$/);
-// files.keys().map((key) => {
-//   modules[key.replace(/(modules|\/|\.|js)/g, "")] = {
-//     ...files(key).default,
-//     namespace: true,
-//   };
-// });
+const modules = {};
+const files = require.context("./modules", false, /\.js$/);
+files.keys().map((key) => {
+  modules[key.replace(/(modules|\/|\.|js)/g, "")] = {
+    ...files(key).default,
+  };
+});
+
+const getters = {
+  menuRoutes: (state) => {
+    return state.permissions.routes.length
+      ? state.permissions.routes.find((item) => item.name === menuRootName)
+          .children
+      : [];
+  },
+};
 
 const state = () => ({
   token: storage.get("token"),
@@ -27,7 +35,8 @@ export default new Vuex.Store({
   state,
   mutations,
   actions,
-  modules: { user },
+  modules,
+  getters,
   strict: debug,
   plugins: debug ? [createLogger()] : [],
 });

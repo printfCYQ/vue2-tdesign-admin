@@ -3,3 +3,4 @@
 3. Mockjs 封装axios 新建login页。（2022-10-24）
 4. mock-login,vuex。（2022-10-24）
 5. 登录持久化，dark-theme。（2022-10-25）
+6. permission-menu,NProgress。（2022-10-25）

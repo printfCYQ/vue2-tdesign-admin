@@ -4,33 +4,48 @@ Vue.use(VueRouter);
 
 import Layout from "@/components/Layout/Layout.vue";
 import PageLayout from "@/components/Layout/PageLayout.vue";
+import permissions from "@/config/permissions.config.js";
 import Login from "@/views/login/Index.vue";
-
-export const menuRoutes = [
+const menuRoutes = [
   {
     path: "/dashboard",
-    name: "dashboard",
+    name: "Dashboard",
     meta: {
       title: "控制台",
       icon: "dashboard",
-    },
-    component: () => import("@/views/dashboard/Index.vue"),
-  },
-  {
-    path: "/user",
-    name: "user",
-    meta: {
-      title: "用户管理",
-      icon: "user",
+      permission: permissions.DASHBOARD,
     },
     component: PageLayout,
     children: [
       {
-        path: "/user-list",
-        name: "userList",
+        path: "base",
+        name: "DashboardBase",
+        meta: {
+          title: "数据统计",
+          icon: "usergroup",
+          permission: permissions.USER_LIST,
+        },
+        component: () => import("@/views/dashboard/Index.vue"),
+      },
+    ],
+  },
+  {
+    path: "/user",
+    name: "User",
+    meta: {
+      title: "用户管理",
+      icon: "user",
+      permission: permissions.USER,
+    },
+    component: PageLayout,
+    children: [
+      {
+        path: "list",
+        name: "UserList",
         meta: {
           title: "用户列表",
           icon: "usergroup",
+          permission: permissions.USER_LIST,
         },
         component: () => import("@/views/user/Index.vue"),
       },
@@ -38,16 +53,18 @@ export const menuRoutes = [
   },
 ];
 
-const routes = [
+export const menuRootName = "menuRoot";
+export const routes = [
   {
     path: "/",
     component: Layout,
-    redirect: "dashboard",
+    redirect: "/dashboard/base",
+    name: menuRootName,
     children: [...menuRoutes],
   },
   {
     path: "/login",
-    name: "login",
+    name: "Login",
     component: Login,
   },
 ];

@@ -1,7 +1,12 @@
 <template>
   <div class="header">
     <div>
-      <t-button shape="square" variant="text" @click="toggleCollapsed">
+      <t-button
+        shape="square"
+        variant="text"
+        size="large"
+        @click="toggleCollapsed"
+      >
         <menu-fold-icon slot="icon" v-if="collapsed" />
         <menu-unfold-icon slot="icon" v-if="!collapsed" />
       </t-button>
@@ -12,6 +17,7 @@
           theme="default"
           shape="square"
           variant="text"
+          size="large"
           @click="navToGitHub"
         >
           <logo-github-filled-icon />
@@ -22,19 +28,11 @@
           theme="default"
           shape="square"
           variant="text"
-          v-if="theme === 'light'"
+          size="large"
           @click="toggleTheme"
         >
-          <heart-icon />
-        </t-button>
-        <t-button
-          theme="default"
-          shape="square"
-          variant="text"
-          v-else
-          @click="toggleTheme"
-        >
-          <heart-filled-icon />
+          <heart-filled-icon v-if="theme === 'light'" />
+          <heart-icon v-else />
         </t-button>
       </t-tooltip>
       <div class="theme"></div>
@@ -68,7 +66,6 @@
 </template>
 
 <script>
-import storage from "@/utils/storage";
 import {
   ChevronDownIcon,
   HeartFilledIcon,
@@ -95,7 +92,7 @@ export default {
   },
   data() {
     return {
-      user: storage.get("currentUser"),
+      // user: storage.get("currentUser"),
     };
   },
   props: {
@@ -105,7 +102,7 @@ export default {
     },
   },
   computed: {
-    ...mapState(["theme"]),
+    ...mapState(["theme", "user"]),
   },
   created() {
     if (this.theme === "dark") {

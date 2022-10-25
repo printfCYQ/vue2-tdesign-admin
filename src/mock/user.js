@@ -28,6 +28,7 @@ export default [
           username: "admin",
           nickname: "admin",
           roles: ["admin"],
+          permissions: ["dashboard", "user", "user:list"],
         },
         message: "获取信息成功",
       };

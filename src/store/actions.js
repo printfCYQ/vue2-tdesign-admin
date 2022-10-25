@@ -15,8 +15,12 @@ export const actions = {
 
   async logout({ commit }) {
     commit("CLEAR_TOKEN");
+    commit("user/CLEAR_CURRENT_USER");
+    commit("permissions/CLEAR_ROUTES");
+    storage.remove("token");
+    storage.remove("currentUser");
+    storage.remove("permissionRoutes");
     resetRouter();
-    storage.set("token", "");
   },
 
   async toggleTheme({ commit }, theme) {
