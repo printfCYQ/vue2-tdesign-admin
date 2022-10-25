@@ -77,6 +77,7 @@ export default {
   },
 
   methods: {
+    // ...mapActions(['user']);
     onReset() {
       this.$message.success("重置成功");
     },
@@ -86,7 +87,8 @@ export default {
         this.$store
           .dispatch("login", this.formData)
           .then(() => {
-            this.$router.replace({
+            this.$store.dispatch("user/fetchCurrentUserInfo");
+            this.$router.push({
               path: this.$route.query.redirect || "/",
             });
           })

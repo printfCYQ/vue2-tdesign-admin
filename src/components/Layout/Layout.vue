@@ -12,19 +12,23 @@
         <t-content>
           <router-view />
         </t-content>
-        <t-footer>footer</t-footer>
+        <t-footer>
+          <Footer></Footer>
+        </t-footer>
       </t-layout>
     </t-layout>
   </div>
 </template>
 
 <script>
+import Footer from "./Footer.vue";
 import Header from "./Header.vue";
 import Sidebar from "./Sidebar.vue";
 export default {
   name: "Layout",
   components: {
     Sidebar,
+    Footer,
     Header,
   },
   data() {

@@ -18,4 +18,19 @@ export default [
       };
     },
   },
+  {
+    url: "/users/me",
+    type: "get",
+    response: () => {
+      return {
+        code: 200,
+        data: {
+          username: "admin",
+          nickname: "admin",
+          roles: ["admin"],
+        },
+        message: "获取信息成功",
+      };
+    },
+  },
 ];
