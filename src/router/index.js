@@ -24,7 +24,7 @@ const menuRoutes = [
         name: "DashboardBase",
         meta: {
           title: "数据统计",
-          icon: "usergroup",
+          icon: "internet",
           permission: permissions.DASHBOARD_BASE,
         },
         component: () => import("@/views/dashboard/Index.vue"),
@@ -50,6 +50,16 @@ const menuRoutes = [
           permission: permissions.USER_LIST,
         },
         component: () => import("@/views/user/Index.vue"),
+      },
+      {
+        path: "roles",
+        name: "UserRoles",
+        meta: {
+          title: "角色列表",
+          icon: "user-avatar",
+          permission: permissions.USER_ROLES,
+        },
+        component: () => import("@/views/user/Roles.vue"),
       },
     ],
   },

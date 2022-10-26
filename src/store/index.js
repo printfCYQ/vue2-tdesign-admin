@@ -31,6 +31,7 @@ const getters = {
       ? buildPermissionRoutesNameList(state.permissions.routes)
       : [];
   },
+  userPermissions: (state) => state.user.permissions,
 };
 
 const buildPermissionRoutesNameList = (routes) => {

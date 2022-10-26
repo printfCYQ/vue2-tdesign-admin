@@ -72,9 +72,6 @@ export default {
       },
     };
   },
-  mounted() {
-    this.$refs.form.validate();
-  },
 
   methods: {
     // ...mapActions(['user']);

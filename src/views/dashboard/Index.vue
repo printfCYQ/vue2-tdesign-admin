@@ -1,6 +1,8 @@
 <template>
   <div>
-    <t-card bordered :style="{ width: '100%' }"> 123</t-card>
+    <t-card bordered :style="{ width: '100%' }">
+      <t-button v-permission="'user:list'">v-permission指令</t-button>
+    </t-card>
   </div>
 </template>
 
