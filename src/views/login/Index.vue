@@ -56,8 +56,8 @@ export default {
   data() {
     return {
       formData: {
-        username: "",
-        password: "",
+        username: "admin",
+        password: "admin",
       },
       loading: false,
       rules: {
@@ -86,9 +86,9 @@ export default {
       if (validateResult === true) {
         this.$store
           .dispatch("login", this.formData)
-          .then(() => {
-            this.$store.dispatch("user/fetchCurrentUserInfo");
-            this.$router.push({
+          .then(async () => {
+            await this.$store.dispatch("user/fetchCurrentUserInfo");
+            await this.$router.push({
               path: this.$route.query.redirect || "/",
             });
           })

@@ -6,6 +6,8 @@ import Layout from "@/components/Layout/Layout.vue";
 import PageLayout from "@/components/Layout/PageLayout.vue";
 import permissions from "@/config/permissions.config.js";
 import Login from "@/views/login/Index.vue";
+import Result403 from "@/views/result/403/Index.vue";
+import Result404 from "@/views/result/404/Index.vue";
 const menuRoutes = [
   {
     path: "/dashboard",
@@ -23,7 +25,7 @@ const menuRoutes = [
         meta: {
           title: "数据统计",
           icon: "usergroup",
-          permission: permissions.USER_LIST,
+          permission: permissions.DASHBOARD_BASE,
         },
         component: () => import("@/views/dashboard/Index.vue"),
       },
@@ -66,6 +68,20 @@ export const routes = [
     path: "/login",
     name: "Login",
     component: Login,
+  },
+  {
+    path: "/404",
+    name: "Result404",
+    component: Result404,
+  },
+  {
+    path: "/403",
+    name: "Result403",
+    component: Result403,
+  },
+  {
+    path: "*",
+    redirect: "/404",
   },
 ];
 

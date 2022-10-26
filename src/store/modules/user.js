@@ -13,7 +13,6 @@ const state = () => ({
 const actions = {
   async fetchCurrentUserInfo({ dispatch, commit }) {
     const { data } = await userApi.me(); // data userinfo
-    console.log(data);
     storage.set("currentUser", data);
     commit("SET_CURRENT_USER", data);
     dispatch("permissions/generateRoutes", data.permissions, {

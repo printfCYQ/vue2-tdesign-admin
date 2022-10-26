@@ -8,7 +8,8 @@ import "./utils/permissions";
 import "tdesign-vue/dist/reset.css";
 import "tdesign-vue/es/style/index.css";
 
-process.env.NODE_ENV === "development" && require("./mock/index");
+// process.env.NODE_ENV === "development" && require("./mock/index");
+require("./mock/index");
 
 Vue.use(TDesign);
 

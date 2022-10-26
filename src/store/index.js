@@ -25,6 +25,23 @@ const getters = {
           .children
       : [];
   },
+  // 扁平化routes
+  permissionRoutesNameList: (state) => {
+    return state.permissions.routes
+      ? buildPermissionRoutesNameList(state.permissions.routes)
+      : [];
+  },
+};
+
+const buildPermissionRoutesNameList = (routes) => {
+  const nameList = [];
+  routes.map((item) => {
+    if (item.children) {
+      nameList.push(...buildPermissionRoutesNameList(item.children));
+    }
+    nameList.push(item.name);
+  });
+  return nameList;
 };
 
 const state = () => ({
