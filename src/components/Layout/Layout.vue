@@ -9,6 +9,7 @@
             @on-toggle-collapsed="toggleCollapsed"
           ></Header
         ></t-header>
+        <Navbar></Navbar>
         <t-content class="content-view">
           <transition name="fade" mode="out-in">
             <router-view />
@@ -25,6 +26,7 @@
 <script>
 import Footer from "./Footer.vue";
 import Header from "./Header.vue";
+import Navbar from "./Navbar.vue";
 import Sidebar from "./Sidebar.vue";
 const MIN_POINT = 992 - 1;
 export default {
@@ -33,6 +35,7 @@ export default {
     Sidebar,
     Footer,
     Header,
+    Navbar,
   },
   data() {
     return {

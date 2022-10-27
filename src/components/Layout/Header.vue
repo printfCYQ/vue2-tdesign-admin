@@ -1,6 +1,6 @@
 <template>
   <div class="header">
-    <div>
+    <div class="header-left">
       <t-button
         shape="square"
         variant="text"
@@ -10,6 +10,11 @@
         <menu-fold-icon slot="icon" v-if="collapsed" />
         <menu-unfold-icon slot="icon" v-if="!collapsed" />
       </t-button>
+      <t-breadcrumb :maxItemWidth="'150'">
+        <t-breadcrumbItem v-for="item in crumbs" :key="item.to" :to="item.to">
+          {{ item.title }}
+        </t-breadcrumbItem>
+      </t-breadcrumb>
     </div>
     <div class="header-right">
       <t-tooltip placement="bottom" content="代码仓库">
@@ -103,6 +108,21 @@ export default {
   },
   computed: {
     ...mapState(["theme", "user"]),
+    crumbs() {
+      const pathArray = this.$route.path.split("/");
+      pathArray.shift();
+      const breadcrumbs = pathArray.reduce((breadcrumbArray, path, idx) => {
+        breadcrumbArray.push({
+          path,
+          to: breadcrumbArray[idx - 1]
+            ? `/${breadcrumbArray[idx - 1].path}/${path}`
+            : `/${path}`,
+          title: this.$route.matched[idx + 1].meta.title || path,
+        });
+        return breadcrumbArray;
+      }, []);
+      return breadcrumbs;
+    },
   },
   created() {
     if (this.theme === "dark") {
@@ -148,6 +168,11 @@ export default {
   align-items: center;
   padding: 0 10px;
   justify-content: space-between;
+
+  .header-left {
+    display: flex;
+    align-items: center;
+  }
 
   .header-right {
     display: flex;

@@ -12,6 +12,7 @@ const menuRoutes = [
   {
     path: "/dashboard",
     name: "Dashboard",
+    redirect: "/dashboard/base",
     meta: {
       title: "控制台",
       icon: "dashboard",
@@ -34,6 +35,7 @@ const menuRoutes = [
   {
     path: "/user",
     name: "User",
+    redirect: "/user/list",
     meta: {
       title: "用户管理",
       icon: "user",

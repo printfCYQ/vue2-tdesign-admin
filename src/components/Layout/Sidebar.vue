@@ -1,8 +1,12 @@
 <template>
   <t-aside :width="collapsed ? '64px' : '232px'">
     <div class="side-menu">
-      <t-menu :collapsed="collapsed" :theme="theme" :defaultValue="$route.name">
-        <!--         :defaultExpanded="defaultExpanded" -->
+      <t-menu
+        :collapsed="collapsed"
+        :theme="theme"
+        :defaultValue="$route.name"
+        :defaultExpanded="defaultExpanded"
+      >
         <template #logo>
           <div class="logo-text">{{ collapsed ? "CYQ" : "CYQ admin" }}</div>
         </template>
@@ -35,31 +39,21 @@ export default {
   computed: {
     ...mapState(["theme"]),
     ...mapGetters(["menuRoutes"]),
-    // defaultExpanded() {
-    //   const path = this.active;
-    //   console.log(path);
-    //   const parentPath = path.substring(0, path.lastIndexOf("/"));
-    //   return parentPath === "" ? [] : [parentPath];
-    // },
-    // active() {
-    //   if (!this.$route.path) {
-    //     return "";
-    //   }
-    //   console.log(this.$route.path);
-    //   let a = this.$route.path
-    //     .split("/")
-    //     .filter((_item, index) => index === 1)
-    //     // .filter((_item, index) => index <= this.maxLevel && index > 0)
-    //     .map((item) => `/${item}`)
-    //     .join("");
-    //   console.log(a);
-    //   return a;
-    // },
+    defaultExpanded() {
+      let pathList = this.$route.path.split("/");
+      let routes = this.menuRoutes;
+      let menuNameList = [];
+      for (let i = 1; i < pathList.length - 1; i++) {
+        let route = routes.find((item) => {
+          item.children && (routes = item.children);
+          return item.path === (i === 1 ? "/" : "") + pathList[i];
+        });
+        menuNameList.push(route.name);
+      }
+      return menuNameList;
+    },
   },
   components: { SidebarItme },
-  created() {
-    console.log(this.menuRoutes);
-  },
 };
 </script>
 
