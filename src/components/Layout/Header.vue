@@ -11,7 +11,12 @@
         <menu-unfold-icon slot="icon" v-if="!collapsed" />
       </t-button>
       <t-breadcrumb :maxItemWidth="'150'">
-        <t-breadcrumbItem v-for="item in crumbs" :key="item.to" :to="item.to">
+        <t-breadcrumbItem
+          v-for="item in crumbs"
+          :key="item.to"
+          :to="item.to"
+          @click="clickBreadcrumbItem(item)"
+        >
           {{ item.title }}
         </t-breadcrumbItem>
       </t-breadcrumb>
@@ -61,7 +66,7 @@
             <user-circle-icon />
           </template>
           <div>
-            {{ user.username }}
+            {{ user.userName }}
             <chevron-down-icon />
           </div>
         </t-button>
@@ -82,7 +87,6 @@ import {
   UserCircleIcon,
 } from "tdesign-icons-vue";
 import { mapState } from "vuex";
-
 export default {
   name: "Header",
   components: {
@@ -137,6 +141,7 @@ export default {
     },
     handleLogout() {
       this.$store.dispatch("logout");
+      this.$store.dispatch("navbar/clearNavbar");
       this.$router.push({
         path: `/login?redirect=${this.$route.fullPath}`,
       });
@@ -155,6 +160,10 @@ export default {
     },
     personalCenter() {
       console.log("personalCenter");
+    },
+    clickBreadcrumbItem(item) {
+      const tabName = this.$route.matched.find((i) => i.path === item.to).name;
+      this.$store.dispatch("navbar/setActiveTabPath", tabName);
     },
   },
 };

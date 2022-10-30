@@ -8,7 +8,7 @@ import permissions from "@/config/permissions.config.js";
 import Login from "@/views/login/Index.vue";
 import Result403 from "@/views/result/403/Index.vue";
 import Result404 from "@/views/result/404/Index.vue";
-const menuRoutes = [
+export const menuRoutes = [
   {
     path: "/dashboard",
     name: "Dashboard",
@@ -21,7 +21,7 @@ const menuRoutes = [
     component: PageLayout,
     children: [
       {
-        path: "base",
+        path: "/dashboard/base",
         name: "DashboardBase",
         meta: {
           title: "数据统计",
@@ -44,7 +44,7 @@ const menuRoutes = [
     component: PageLayout,
     children: [
       {
-        path: "list",
+        path: "/user/list",
         name: "UserList",
         meta: {
           title: "用户列表",
@@ -54,7 +54,7 @@ const menuRoutes = [
         component: () => import("@/views/user/Index.vue"),
       },
       {
-        path: "roles",
+        path: "/user/roles",
         name: "UserRoles",
         meta: {
           title: "角色列表",

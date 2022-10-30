@@ -3,9 +3,8 @@ export default [
     url: "/token",
     type: "post",
     response: (req) => {
-      const { username, password } = req.body;
-      console.log(username, password);
-      if (username === "admin" && password === "admin") {
+      const { email, password } = req.body;
+      if (email === "admin" && password === "admin") {
         return {
           code: 200,
           token: "asdsdsd",

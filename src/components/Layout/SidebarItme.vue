@@ -2,10 +2,9 @@
   <div>
     <t-menu-item
       v-if="item && !item.children"
-      :value="item.name"
-      :to="{
-        name: item.name,
-      }"
+      :value="item.path"
+      :to="item.path"
+      @click="clickEmnuItem($event, item)"
     >
       <template #icon>
         <t-icon :name="item.meta.icon" />
@@ -14,7 +13,7 @@
     </t-menu-item>
     <t-submenu
       v-if="item && item.children"
-      :value="item.name"
+      :value="item.path"
       :title="item.meta.title"
     >
       <template #icon>
@@ -22,7 +21,7 @@
       </template>
       <sidebar-item
         v-for="i in item.children"
-        :key="i.name"
+        :key="i.path"
         :item="i"
       ></sidebar-item>
     </t-submenu>
@@ -36,6 +35,12 @@ export default {
     item: {
       type: Object,
       value: null,
+    },
+  },
+  methods: {
+    clickEmnuItem(e, item) {
+      this.$store.dispatch("navbar/addNavbar", item);
+      this.$store.dispatch("navbar/setActiveTabPath", item.path);
     },
   },
 };

@@ -17,8 +17,10 @@ router.beforeEach((to, from, next) => {
   }
 
   // 403 鉴权
-  const hasPermissions = store.getters.permissionRoutesNameList.includes(
-    to.name
+  console.log(store.getters.permissionRoutesPathList);
+  console.log(to.path);
+  const hasPermissions = store.getters.permissionRoutesPathList.includes(
+    to.path
   );
   if (!hasPermissions && !whiteList.includes(to.path)) {
     next({ path: "/403" });

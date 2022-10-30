@@ -26,23 +26,23 @@ const getters = {
       : [];
   },
   // 扁平化routes
-  permissionRoutesNameList: (state) => {
+  permissionRoutesPathList: (state) => {
     return state.permissions.routes
-      ? buildPermissionRoutesNameList(state.permissions.routes)
+      ? buildPermissionRoutesPathList(state.permissions.routes)
       : [];
   },
   userPermissions: (state) => state.user.permissions,
 };
 
-const buildPermissionRoutesNameList = (routes) => {
-  const nameList = [];
+const buildPermissionRoutesPathList = (routes) => {
+  const pathList = [];
   routes.map((item) => {
     if (item.children) {
-      nameList.push(...buildPermissionRoutesNameList(item.children));
+      pathList.push(...buildPermissionRoutesPathList(item.children));
     }
-    nameList.push(item.name);
+    pathList.push(item.path);
   });
-  return nameList;
+  return pathList;
 };
 
 const state = () => ({

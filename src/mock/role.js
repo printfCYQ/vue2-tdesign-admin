@@ -4,7 +4,6 @@ export default [
     type: "post",
     response: (req) => {
       const role = req.body;
-      console.log(role);
       return {
         code: 200,
         data: role,

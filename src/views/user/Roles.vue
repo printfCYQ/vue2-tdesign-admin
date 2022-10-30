@@ -13,9 +13,11 @@
       </div>
       <t-table
         row-key="index"
-        :pagination="{ total: 30 }"
+        :pagination="pagination"
         :data="roleList"
         :columns="columns"
+        :loading="loading"
+        @page-change="pageChange"
       >
         <template #operation="{ row }">
           <div class="operation">
@@ -41,7 +43,10 @@
         </template>
       </t-table>
     </t-card>
-    <RoleEditDialog ref="roleEditDialog"></RoleEditDialog>
+    <RoleEditDialog
+      ref="roleEditDialog"
+      @updateTable="fetchData"
+    ></RoleEditDialog>
   </div>
 </template>
 
@@ -55,8 +60,8 @@ export default {
   data() {
     return {
       columns: [
-        { colKey: "name", title: "角色名称" },
-        { colKey: "label", title: "角色标识" },
+        { colKey: "roleName", title: "角色名称" },
+        { colKey: "roleLabel", title: "角色标识" },
         {
           colKey: "operation",
           title: "操作",
@@ -65,27 +70,56 @@ export default {
           align: "center",
         },
       ],
-      roleList: [
-        { name: "ROLE_USER", label: "游客" },
-        { name: "ROLE_ADMIN", label: "管理员" },
-      ],
+      roleList: [],
+      loading: false,
+      pagination: {
+        defaultCurrent: 1,
+        defaultPageSize: 10,
+        total: 0,
+      },
       visible: false,
     };
   },
   created() {
-    roleApi.list().then((res) => {
-      console.log(res);
-      this.roleList = res.data;
-    });
+    this.fetchData();
   },
   methods: {
+    fetchData() {
+      this.loading = true;
+      const params = {
+        pageSize: this.pagination.defaultPageSize,
+        pageNum: this.pagination.defaultCurrent,
+      };
+      roleApi.list(params).then((res) => {
+        this.roleList = res.data.roleList;
+        this.pagination.defaultCurrent = res.data.pageNum;
+        this.pagination.defaultPageSize = res.data.pageSize;
+        this.pagination.total = res.data.total;
+      });
+      this.loading = false;
+    },
+    pageChange(pageInfo) {
+      this.pagination.defaultCurrent = pageInfo.current;
+      this.pagination.defaultPageSize = pageInfo.pageSize;
+      this.fetchData();
+    },
     handelEdit(value) {
-      console.log(value);
+      this.$refs.roleEditDialog.formData._id = value._id;
       this.$refs.roleEditDialog.visible = true;
-      this.$refs.roleEditDialog.formData = value;
     },
     handelDelete(value) {
-      console.log(value);
+      let mydialog = this.$dialog({
+        header: "提示",
+        body: "确认删除？",
+        style: "color: rgba(0, 0, 0, 0.6)",
+        onConfirm: () => {
+          roleApi.remove(value._id).then((res) => {
+            this.$message.success(res.message);
+            this.fetchData();
+          });
+          mydialog.hide();
+        },
+      });
     },
     handelAdd() {
       this.$refs.roleEditDialog.visible = true;
@@ -98,6 +132,7 @@ export default {
 .operation {
   display: flex;
   justify-content: center;
+
   &-item {
     margin-left: 10px;
   }

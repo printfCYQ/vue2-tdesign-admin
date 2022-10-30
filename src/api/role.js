@@ -1,15 +1,19 @@
 import { get, post } from "./request";
 
 const create = (data) => {
-  return post("/roles", data);
+  return post("/role/create", data);
 };
 
-const update = (id, fields) => {
-  return post(`/roles/${id}`, fields);
+const findById = (id) => {
+  return get(`/role`, { params: id });
+};
+
+const update = (fields) => {
+  return post(`/role/update`, fields);
 };
 
 const remove = (id) => {
-  return post(`/roles/${id}/detele`);
+  return post(`/role/del`, { roleId: id });
 };
 
 const list = (filter) => {
@@ -17,6 +21,7 @@ const list = (filter) => {
 };
 export default {
   create,
+  findById,
   update,
   remove,
   list,

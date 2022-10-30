@@ -3,6 +3,7 @@ const permissions = {
   DASHBOARD_BASE: "dashboard:base",
   USER: "user",
   USER_LIST: "user:list",
+  USER_LIST_ADD: "user:list:add",
   USER_ROLES: "user:roles",
   USER_ROLES_ADD: "user:roles:add",
 };
@@ -25,6 +26,12 @@ export const permissionsTree = [
       {
         value: permissions.USER_LIST,
         label: "用户列表",
+        children: [
+          {
+            value: permissions.USER_LIST_ADD,
+            label: "添加用户",
+          },
+        ],
       },
       {
         value: permissions.USER_ROLES,

@@ -2,15 +2,19 @@
   <div>
     <t-layout>
       <Sidebar :collapsed="collapsed"></Sidebar>
-      <t-layout>
+      <t-layout
+        :style="{
+          width: collapsed ? 'calc(100vw - 64px)' : 'calc(100vw - 232px)',
+        }"
+      >
         <t-header
           ><Header
             :collapsed="collapsed"
             @on-toggle-collapsed="toggleCollapsed"
           ></Header
         ></t-header>
-        <Navbar></Navbar>
-        <t-content class="content-view">
+        <t-content>
+          <Navbar></Navbar>
           <transition name="fade" mode="out-in">
             <router-view />
           </transition>

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="content-view">
     <router-view></router-view>
   </div>
 </template>
@@ -9,3 +9,8 @@ export default {
   name: "PageLayout",
 };
 </script>
+<style lang="scss" scoped>
+.content-view {
+  padding: 20px;
+}
+</style>

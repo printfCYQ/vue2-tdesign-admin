@@ -4,7 +4,7 @@
       <t-menu
         :collapsed="collapsed"
         :theme="theme"
-        :defaultValue="$route.name"
+        :defaultValue="$route.path"
         :defaultExpanded="defaultExpanded"
       >
         <template #logo>
@@ -12,7 +12,7 @@
         </template>
         <SidebarItme
           v-for="item in menuRoutes"
-          :key="item.name"
+          :key="item.path"
           :item="item"
         ></SidebarItme>
       </t-menu>
@@ -31,26 +31,23 @@ export default {
       type: Boolean,
     },
   },
-  data() {
-    return {
-      // defaultExpanded: [],
-    };
-  },
   computed: {
     ...mapState(["theme"]),
     ...mapGetters(["menuRoutes"]),
     defaultExpanded() {
-      let pathList = this.$route.path.split("/");
-      let routes = this.menuRoutes;
-      let menuNameList = [];
-      for (let i = 1; i < pathList.length - 1; i++) {
-        let route = routes.find((item) => {
-          item.children && (routes = item.children);
-          return item.path === (i === 1 ? "/" : "") + pathList[i];
-        });
-        menuNameList.push(route.name);
+      const path = this.active;
+      const parentPath = path.substring(0, path.lastIndexOf("/"));
+      return parentPath === "" ? [] : [parentPath];
+    },
+    active() {
+      if (!this.$route.path) {
+        return "";
       }
-      return menuNameList;
+      return this.$route.path
+        .split("/")
+        .filter((_item, index) => index > 0)
+        .map((item) => `/${item}`)
+        .join("");
     },
   },
   components: { SidebarItme },
@@ -61,6 +58,7 @@ export default {
 .side-menu {
   height: 100vh;
 }
+
 .logo-text {
   text-align: center;
   width: 100%;

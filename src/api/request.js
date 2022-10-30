@@ -1,7 +1,7 @@
 import store from "@/store";
 import axios from "axios";
 import { MessagePlugin } from "tdesign-vue";
-const BASE_URL = process.env.VUE_APP_BASE_API;
+export const BASE_URL = process.env.VUE_APP_BASE_API;
 const instance = axios.create({
   baseURL: BASE_URL,
 });
@@ -29,12 +29,12 @@ instance.interceptors.response.use(
 );
 
 const handelResponseError = async (err) => {
-  console.log(err);
+  // console.log(err);
   const { response } = err;
   if (err.code === 401) {
     await store.dispatch("logout");
   }
-  await MessagePlugin.error(response.data.message);
+  await MessagePlugin.error(response.data.error);
 };
 const { get, post } = instance;
 

@@ -12,10 +12,10 @@
           :colon="true"
           :labelWidth="0"
         >
-          <t-form-item name="username">
+          <t-form-item name="email">
             <t-input
               clearable
-              v-model="formData.username"
+              v-model="formData.email"
               placeholder="请输入账户名"
               size="large"
             >
@@ -56,12 +56,12 @@ export default {
   data() {
     return {
       formData: {
-        username: "admin",
+        email: "admin",
         password: "admin",
       },
       loading: false,
       rules: {
-        username: [
+        email: [
           { required: true, message: "请输入用户名", type: "warning" },
           { min: 4, message: "最少四个字符", type: "warning" },
         ],

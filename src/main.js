@@ -10,7 +10,7 @@ import "tdesign-vue/dist/reset.css";
 import "tdesign-vue/es/style/index.css";
 import VueRouter from "vue-router";
 // process.env.NODE_ENV === "development" && require("./mock/index");
-require("./mock/index");
+// require("./mock/index");
 
 // 解决Vue路由跳转报:Error: Avoided redundant navigation to current location 错误问题
 const originPush = VueRouter.prototype.push;

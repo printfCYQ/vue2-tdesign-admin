@@ -5,7 +5,8 @@ const state = () => ({
   routes: storage.get("permissionRoutes") || [],
 });
 const actions = {
-  generateRoutes({ commit }, permissions, admin = false) {
+  generateRoutes({ commit }, { permissions, admin = false }) {
+    console.log(permissions, admin);
     let accessedRoutes = admin ? routes : filterRoutes(routes, permissions);
     storage.set("permissionRoutes", accessedRoutes);
     commit("SET_ROUTES", accessedRoutes);
