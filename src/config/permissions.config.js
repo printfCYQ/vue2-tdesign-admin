@@ -1,4 +1,4 @@
-const permissions = {
+export const permissions = {
   DASHBOARD: "dashboard",
   DASHBOARD_BASE: "dashboard:base",
   USER: "user",

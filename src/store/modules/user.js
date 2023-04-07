@@ -1,5 +1,5 @@
 import userApi from "@/api/user";
-import { routes } from "@/router";
+import { permissions } from "@/config/permissions.config.js";
 import storage from "@/utils/storage";
 
 const defaultUser = storage.get("currentUser") || {
@@ -31,12 +31,21 @@ const actions = {
     }
   },
 };
+// 获取所有权限
+const allPermissions = () => {
+  let allPermission = [];
+  for (let key in permissions) {
+    console.log(key);
+    allPermission.push(permissions[key]);
+  }
+  return allPermission;
+};
 const mutations = {
   SET_CURRENT_USER(state, currentUser) {
     state.userName = currentUser.userName;
     state.roles = currentUser.roles;
     state.permissions =
-      state.userName === "admin" ? routes : currentUser.permissions;
+      state.userName === "admin" ? allPermissions() : currentUser.permissions;
   },
   CLEAR_CURRENT_USER(state) {
     state.userName = "";
